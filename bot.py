@@ -1,8 +1,8 @@
 import logging
 import json
 import validators
-from urllib.parse import urlparse
-from telegram import ParseMode
+
+from telegram import ParseMode, InputMediaPhoto
 from telegram.ext import MessageHandler, Filters, Updater
 from Screenshot import Screenshot_Clipping
 from selenium import webdriver
@@ -15,8 +15,7 @@ logger = logging.getLogger(__name__)
 # requirement I: Receive token from config file
 def get_token():
     with open("config.json", "r") as config:
-        config = config.read()
-        config = json.loads(config)
+        config = json.loads(config.read())
         token = str(config['token'])
         return token
 
@@ -39,7 +38,10 @@ def make_screenshot(update, context):
         reply = "Друг, это не ссылка, я не смогу сделать скриншот"
     else:
         reply = "Это ссылка, чичас пойду делать скриншот"
+    pic = open("pics/test_img.jpg", 'rb')
+
     context.bot.send_message(chat_id=update.effective_chat.id, text=reply, parse_mode=ParseMode.HTML)
+    context.bot.send_photo(chat_id=update.effective_chat.id, photo=pic, caption="Ты дурашка потомушто...")
 
 
 def main():
