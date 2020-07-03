@@ -5,6 +5,7 @@ __pycache__/
 
 # My exceptions
 config.json
+.idea/
 
 # C extensions
 *.so
